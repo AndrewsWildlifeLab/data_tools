@@ -8,6 +8,7 @@ source("functions/data_manager.R")
 source("functions/localization.R")
 
 ###EDIT THESE VALUES
+#scan("clipboard",what="string")
 infile <- "C:/Users/ethan/Dropbox/Flat Tub/Data/SS/!Need-to-be-processed/sectioned-by-grid"
 outpath <- "C:/Users/ethan/Dropbox/Flat Tub/Data/SS/!Results/CTT RStudio"
 
