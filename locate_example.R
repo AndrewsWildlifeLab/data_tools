@@ -8,22 +8,22 @@ source("functions/data_manager.R")
 source("functions/localization.R")
 
 ###EDIT THESE VALUES
-infile <- "../data/indigo"
-outpath <- "../output/"
+infile <- "C:/Users/ethan/Dropbox/Flat Tub/Data/SS/!Need-to-be-processed/sectioned-by-grid"
+outpath <- "C:/Users/ethan/Dropbox/Flat Tub/Data/SS/!Results/CTT RStudio"
 
-tags <- read.csv("../data/indigo/snake_tags.csv", as.is=TRUE, na.strings=c("NA", "")) #uppercase node letters
+tags <- read.csv("C:/Users/ethan/Dropbox/Flat Tub/Data/SS/csv/snake_tags.csv", as.is=TRUE, na.strings=c("NA", "")) #uppercase node letters
 
 all_data <- load_data(infile)
 beep_data <- all_data[[1]][[1]]
-#beep_data <- beep_data[beep_data$Time > as.POSIXct("2020-08-10"),]
+beep_data <- beep_data[beep_data$Time >= as.POSIXct("2020-10-14"),]
 
 #nodes <- node_file(all_data[[2]][[1]])
 ###looking for a file with the column names NodeId, lat, lng IN THAT ORDER
-nodes <- read.csv("../data/ABS_TagTest1/all-node-locations-2020-10-05.csv", as.is=TRUE, na.strings=c("NA", ""), strip.white=TRUE) #uppercase node letters
-nodes <- nodes[,c("NodeId", "lat", "lng")]
-nodes$NodeId <- toupper(nodes$NodeId)
+nodes <- read.csv("C:/Users/ethan/Desktop/Andrews_tags-nodes_csv-files/snake_nodes201014.csv") #uppercase node letters
+nodes <- nodes[,c("ï..NodeId", "lat", "lng")]
+nodes$ï..NodeId <- toupper(nodes$ï..NodeId)
 
-beep_data <- beep_data[beep_data$NodeId %in% nodes$NodeId,] #c("326317", "326584", "3282fa", "3285ae", "3288f4")
+beep_data <- beep_data[beep_data$NodeId %in% nodes$ï..NodeId ,] #c("326317", "326584", "3282fa", "3285ae", "3288f4")
 
 ###UNCOMMENT THESE AND FILL WITH YOUR DESIRED VALUES IF YOU WANT YOUR OUTPUT AS ONLY A SUBSET OF THE DATA
 #channel <- a vector of RadioId value(s)
@@ -35,9 +35,9 @@ beep_data <- beep_data[beep_data$NodeId %in% nodes$NodeId,] #c("326317", "326584
 tag_id <- tags$TagId
 #
 #channel <- c(2)
-freq <- c("3 min", "10 min")
+freq <- c("1 min", "5 min", "15 min", "30 min", "60 min", "1 day")
 
-max_nodes <- 0 #how many nodes should be used in the localization calculation?
+max_nodes <- 3 #how many nodes should be used in the localization calculation?
 df <- merge_df(beep_data, nodes, tag_id)
 
 resampled <- advanced_resampled_stats(beeps = beep_data, node = nodes, freq = freq[1], tag_id = tag_id)
