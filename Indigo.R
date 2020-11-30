@@ -10,7 +10,7 @@ source("functions/localization.R")
 ###EDIT THESE VALUES
 #scan("clipboard",what="string")
 infile <- "C:/Users/ethan/Dropbox/Flat Tub/Data/SS/!Need-to-be-processed/sectioned-by-grid"
-outpath <- "C:/Users/ethan/Dropbox/Flat Tub/Data/SS/!Results/CTT RStudio"
+outpath <- "C:/Users/ethan/Dropbox/Flat Tub/Data/SS/!Results/CTT RStudio/"
 
 tags <- read.csv("C:/Users/ethan/Dropbox/Flat Tub/Data/SS/csv/snake_tags.csv", as.is=TRUE, na.strings=c("NA", "")) #uppercase node letters
 
@@ -47,6 +47,7 @@ freqs <- lapply(myfreqs, function(myfreq) {
     #  colnames(nodes)[colnames(nodes)=="Latitude"] <- "lat"
     #  colnames(nodes)[colnames(nodes)=="Longitude"] <- "lng"
     #}
+    colnames(nodes)[colnames(nodes) == "ï..NodeId"] <- "NodeId"
     nodes <- nodes[,c("NodeId", "lat", "lng")]
     nodes$NodeId <- toupper(nodes$NodeId)
 
@@ -77,10 +78,10 @@ freqs <- lapply(myfreqs, function(myfreq) {
     resampled <- advanced_resampled_stats(beeps = mybeep_data, node = nodes, freq = myfreq, tag_id = tag_id)
     locations <- weighted_average(myfreq, mybeep_data, nodes, tag_id = tag_id)
 #multi_freq <- lapply(freq, weighted_average, beeps=beep_data, node=nodes) 
-export_locs(freq, beep_data, nodes, tag_id, outpath)
+#export_locs(freq, beep_data, nodes, tag_id, outpath)
 
-#n <- 2 #this is an example of filtering out locations based on a minimum number of nodes
-#locations <- locations[locations$unique_nodes > n,]
+n <- 3#this is an example of filtering out locations based on a minimum number of nodes
+locations <- locations[locations$unique_nodes > n,]
 
 #locations$ID <- paste(locations$TagId, locations$freq, sep="_")
 #locations <- locations[!duplicated(locations$ID),]

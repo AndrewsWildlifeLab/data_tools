@@ -20,10 +20,11 @@ beep_data <- beep_data[beep_data$Time >= as.POSIXct("2020-10-14"),]
 #nodes <- node_file(all_data[[2]][[1]])
 ###looking for a file with the column names NodeId, lat, lng IN THAT ORDER
 nodes <- read.csv("C:/Users/ethan/Desktop/Andrews_tags-nodes_csv-files/snake_nodes201014.csv") #uppercase node letters
-nodes <- nodes[,c("ï..NodeId", "lat", "lng")]
-nodes$ï..NodeId <- toupper(nodes$ï..NodeId)
+colnames(nodes)[colnames(nodes) == "ï..NodeId"] <- "NodeId"
+nodes <- nodes[,c("NodeId", "lat", "lng")]
+nodes$NodeId <- toupper(nodes$NodeId)
 
-beep_data <- beep_data[beep_data$NodeId %in% nodes$ï..NodeId ,] #c("326317", "326584", "3282fa", "3285ae", "3288f4")
+beep_data <- beep_data[beep_data$NodeId %in% nodes$NodeId ,] #c("326317", "326584", "3282fa", "3285ae", "3288f4")
 
 ###UNCOMMENT THESE AND FILL WITH YOUR DESIRED VALUES IF YOU WANT YOUR OUTPUT AS ONLY A SUBSET OF THE DATA
 #channel <- a vector of RadioId value(s)
@@ -48,7 +49,7 @@ locations <- weighted_average(freq[1], beep_data, nodes, all_data[[2]][[1]], 0, 
 #multi_freq <- lapply(freq, weighted_average, beeps=beep_data, node=nodes) 
 #export_locs(freq, beep_data, nodes, tag_id, outpath)
 
-n <- 2 #this is an example of filtering out locations based on a minimum number of nodes
+n <- 3 #this is an example of filtering out locations based on a minimum number of nodes
 locations <- locations[locations$unique_nodes > n,]
 
 #locations$ID <- paste(locations$TagId, locations$freq, sep="_")
