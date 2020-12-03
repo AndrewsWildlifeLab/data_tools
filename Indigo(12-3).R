@@ -4,11 +4,10 @@ library(rgdal)
 library(sf)
 library(ggplot2)
 library(geosphere)
-source("C:/Users/ethan/Desktop/data_tools/functions/data_manager.R")
-source("C:/Users/ethan/Desktop/data_tools/functions/localization.R")
+source("functions/data_manager.R")
+source("functions/localization.R")
 
 ###EDIT THESE VALUES
-#scan("clipboard",what="string")
 infile <- "C:/Users/ethan/Dropbox/Flat Tub/Data/SS/!Need-to-be-processed/sectioned-by-grid/"
 outpath <- "C:/Users/ethan/Dropbox/Flat Tub/Data/SS/!Results/CTT RStudio/"
 
@@ -26,20 +25,19 @@ myfreqs <- c("1 min", "15 min", "30 min", "1 hour", "1 day")
 #myfreqs <- c("1 day")
 
 dates <- list(
- # c("2020-03-13", "2020-04-10"),
- # c("2020-04-11", "2020-04-16"),
- c("2020-04-17", "2020-04-24"),
- c("2020-04-25", "2020-06-22"), 
- c("2020-06-23", "2020-07-13"),
- c("2020-07-14", "2020-07-23"),
- c("2020-07-24", "2020-10-13")#,
- # c("2020-10-14", "2020-11-23"),
- # c("2020-11-24", "2020-12-02")
+  c("2020-03-13", "2020-04-10"),
+  #c("2020-04-11", "2020-04-16"),
+  c("2020-04-17", "2020-04-24"),
+  c("2020-04-25", "2020-06-22"), 
+  c("2020-06-23", "2020-07-13"),
+  c("2020-07-14", "2020-07-23"),
+  c("2020-07-24", "2020-10-13")#,
+  #c("2020-10-14", "2020-11-03")
 )
 
 freqs <- lapply(myfreqs, function(myfreq) {
   all2 <- Map(function(df, g) {
-    thisfile <- list.files("C:/Users/ethan/Dropbox/Flat Tub/Data/SS/csv/Nodes", full.names = TRUE)[df]
+    thisfile <- list.files("C:/Users/ethan/Downloads/drive-download-20201203T173058Z-001", full.names = TRUE)[df]
     print(thisfile)
     nodes <- read.csv(thisfile, as.is=TRUE, na.strings=c("NA", ""), strip.white=TRUE) #uppercase node letters
     print(df)
@@ -48,7 +46,6 @@ freqs <- lapply(myfreqs, function(myfreq) {
     #  colnames(nodes)[colnames(nodes)=="Latitude"] <- "lat"
     #  colnames(nodes)[colnames(nodes)=="Longitude"] <- "lng"
     #}
-    colnames(nodes)[colnames(nodes) == "ï..NodeId"] <- "NodeId"
     nodes <- nodes[,c("NodeId", "lat", "lng")]
     nodes$NodeId <- toupper(nodes$NodeId)
 
@@ -56,7 +53,6 @@ freqs <- lapply(myfreqs, function(myfreq) {
     starttime <- as.POSIXct(paste(g[1], "00:00:00"), tz="UTC")
     print(starttime)
     endtime <- as.POSIXct(paste(g[2], "00:00:00"), tz="UTC")
-    #shouldn't it be 23:59:59?
     print(endtime)
     mybeep_data <- mybeep_data[mybeep_data$Time > starttime & mybeep_data$Time < endtime,]
 
@@ -81,15 +77,14 @@ freqs <- lapply(myfreqs, function(myfreq) {
 #multi_freq <- lapply(freq, weighted_average, beeps=beep_data, node=nodes) 
 #export_locs(freq, beep_data, nodes, tag_id, outpath)
 
-n <- 3#this is an example of filtering out locations based on a minimum number of nodes
-locations <- locations[locations$unique_nodes > n,]
+#n <- 2 #this is an example of filtering out locations based on a minimum number of nodes
+#locations <- locations[locations$unique_nodes > n,]
 
 #locations$ID <- paste(locations$TagId, locations$freq, sep="_")
 #locations <- locations[!duplicated(locations$ID),]
   locations <- cbind(locations, locations@coords)
   loc_df <- locations@data
-  return(list(loc_df, resampled))}, c(3:7), dates)
-  #add others in whenever
+  return(list(loc_df, resampled))}, c(1, 3:7), dates)
   getlocs <- lapply(all2, "[[", 1)
   locs <- rbindlist(getlocs)
   
