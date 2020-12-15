@@ -9,7 +9,7 @@ source("C:/Users/ethan/Desktop/data_tools/functions/localization.R")
 
 ###EDIT THESE VALUES
 infile <- "C:/Users/ethan/Dropbox/Flat Tub/Data/SS/!Need-to-be-processed/sectioned-by-grid/"
-outpath <- "C:/Users/ethan/Dropbox/Flat Tub/Data/SS/!Results/CTT RStudio/"
+outpath <- "C:/Users/ethan/Dropbox/Flat Tub/Data/SS/!Results/CTT RStudio/processed 201215/"
 
 tags <- read.csv("C:/Users/ethan/Dropbox/Flat Tub/Data/SS/csv/snake_tags.csv", as.is=TRUE, na.strings=c("NA", ""), colClasses="character") #uppercase node letters
 
@@ -30,9 +30,9 @@ dates <- list(
   c("2020-04-17", "2020-04-24"),
   c("2020-04-25", "2020-06-22"), 
   c("2020-06-23", "2020-07-13"),
-  c("2020-07-14", "2020-07-23"),
-  c("2020-07-24", "2020-10-13"),
-  c("2020-10-14", "2020-12-14")
+  c("2020-07-14", "2020-07-23")#,
+  #c("2020-07-24", "2020-10-13")#,
+  #c("2020-10-14", "2020-12-14")
 )
 
 freqs <- lapply(myfreqs, function(myfreq) {
@@ -42,7 +42,8 @@ freqs <- lapply(myfreqs, function(myfreq) {
     nodes <- read.csv(thisfile, as.is=TRUE, na.strings=c("NA", ""), strip.white=TRUE) #uppercase node letters
     print(df)
     if(df > 6) {
-      colnames(nodes)[colnames(nodes)=="ï..NodeId"] <- "NodeId"
+    colnames(nodes)[colnames(nodes)=="ï..NodeId"] <- "NodeId"
+    #  colnames(nodes)[colnames(nodes)=="ident"] <- "NodeId"
     #  colnames(nodes)[colnames(nodes)=="Latitude"] <- "lat"
     #  colnames(nodes)[colnames(nodes)=="Longitude"] <- "lng"
     }
@@ -84,7 +85,7 @@ freqs <- lapply(myfreqs, function(myfreq) {
 #locations <- locations[!duplicated(locations$ID),]
   locations <- cbind(locations, locations@coords)
   loc_df <- locations@data
-  return(list(loc_df, resampled))}, c(1, 3:8), dates)
+  return(list(loc_df, resampled))}, c(1, 3:6), dates)
   getlocs <- lapply(all2, "[[", 1)
   locs <- rbindlist(getlocs)
   
