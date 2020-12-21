@@ -25,14 +25,14 @@ myfreqs <- c("1 min", "15 min", "30 min", "1 hour", "1 day")
 #myfreqs <- c("1 day")
 
 dates <- list(
-  c("2020-03-13", "2020-04-10"),
+  #c("2020-03-13", "2020-04-10"),
   #c("2020-04-11", "2020-04-16"),
-  c("2020-04-17", "2020-04-24"),
-  c("2020-04-25", "2020-06-22"), 
-  c("2020-06-23", "2020-07-13"),
-  c("2020-07-14", "2020-07-23"),
-  c("2020-07-24", "2020-10-13"),
-  c("2020-10-14", "2020-12-14")
+  #c("2020-04-17", "2020-04-24"),
+  #c("2020-04-25", "2020-06-22"), 
+  #c("2020-06-23", "2020-07-13"),
+  #c("2020-07-14", "2020-07-23"),
+  #c("2020-07-24", "2020-10-13"),
+  c("2020-10-14", "2020-12-21")
 )
 
 freqs <- lapply(myfreqs, function(myfreq) {
@@ -84,7 +84,7 @@ freqs <- lapply(myfreqs, function(myfreq) {
 #locations <- locations[!duplicated(locations$ID),]
   locations <- cbind(locations, locations@coords)
   loc_df <- locations@data
-  return(list(loc_df, resampled))}, c(1, 3:8), dates)
+  return(list(loc_df, resampled))}, c(8), dates)
   getlocs <- lapply(all2, "[[", 1)
   locs <- rbindlist(getlocs)
   
