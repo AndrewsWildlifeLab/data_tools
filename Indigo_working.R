@@ -60,7 +60,7 @@ freqs <- lapply(myfreqs, function(myfreq) {
     #channel <- a vector of RadioId value(s)
     #tag_id <- a vector of TagId value(s)
     #n_tags <- how many tags go into the "top tags"
-    freq <- "5 min" #The interval of the added datetime variable. Any character string that would be accepted by seq.Date or seq.POSIXt
+    #freq <- "5 min" The interval of the added datetime variable. Any character string that would be accepted by seq.Date or seq.POSIXt
     
     #EXAMPLE POSSIBLE VALUES
     tag_id <- tags$TagId
