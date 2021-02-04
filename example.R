@@ -26,10 +26,10 @@ source("functions/node_health.R")
 #It can contain any/all of your downloaded data files, just don't manipulate/add your own unrelated/altered files.
 #Unzip any zipped directories therein, but compressed csv files (csv.gz) don't need to be unzipped
 
-infile <- "C:/Users/ethan/Dropbox/Flat Tub/Data/SS/!Need-to-be-processed/sectioned-by-grid"
+infile <- "C:/Users/ethan/Dropbox/Flat Tub/Data/SS/!Need-to-be-processed/sectioned-by-grid/200210-200410 data"
 
 #This is where you want your output to go
-outpath <- "C:/Users/ethan/Desktop/FTSS_data_backup/As of 121520/"
+outpath <- "C:/Users/ethan/Desktop"
 
 freq <- "1 hour" #interval to summarize node health indicators of interest
 
@@ -45,8 +45,8 @@ tides = FALSE
 
 #EXAMPLE POSSIBLE VALUES
 #tags <- c("61526633")
-start_time = as.POSIXct("2020-09-29 00:00:00", tz = "America/New_York")
-end_time = as.POSIXct("2020-12-14 23:59:59", tz = "America/New_York")
+start_time = as.POSIXct("2020-02-10 00:00:00", tz = "America/New_York")
+end_time = as.POSIXct("2020-04-10 23:59:59", tz = "America/New_York")
 
 all_data <- load_data(infile) #start_time, end_time, tags
 #set arguments if you choose to subset by date or tags
@@ -71,7 +71,7 @@ beep_data <- beep_data[beep_data$TagId %in% tags$TagId,]
 #my_node_data <- my_node_data[my_node_data$TagId %in% my_node_data$TagId,]
 
 #UNCOMMENT AND RUN THE export_data() FUNCTION below IF YOU WANT OUTPUT CSV FILES
-export_data(infile, outpath, starttime=NULL, endtime=NULL, tags=tags$TagId)
+export_data(infile, outpath, tags=tags$TagId)
 
 #Alternatively, if you have a file already created that you'd like to work
 #with in the same format, you can always read.csv() into a data frame of the same name here

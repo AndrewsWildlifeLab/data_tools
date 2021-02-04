@@ -9,7 +9,7 @@ source("C:/Users/ethan/Desktop/data_tools/functions/localization.R")
 
 ###EDIT THESE VALUES
 infile <- "C:/Users/ethan/Dropbox/Flat Tub/Data/SS/!Need-to-be-processed/sectioned-by-grid/"
-outpath <- "C:/Users/ethan/Dropbox/Flat Tub/Data/SS/!Results/CTT RStudio/"
+outpath <- "C:/Users/ethan/Dropbox/Flat Tub/Data/SS/!Results/CTT RStudio/processed_041620-020121/"
 
 tags <- read.csv("C:/Users/ethan/Dropbox/Flat Tub/Data/SS/csv/snake_tags.csv", as.is=TRUE, na.strings=c("NA", ""), colClasses="character") #colClasses="character" addresses letter "E" in Node and Tag IDs
 
@@ -21,11 +21,11 @@ beep_data <- all_data[[1]][[1]]
 #nodes <- node_file(all_data[[2]][[1]])
 ###looking for a file with the column names NodeId, lat, lng IN THAT ORDER
 
-myfreqs <- c("1 min", "15 min", "30 min", "1 hour", "1 day")
+myfreqs <- c("1 min", "5 min") #("1 min", "15 min", "30 min", "1 hour", "1 day")
 #myfreqs <- c("1 day")
 
 dates <- list(
-  #c("2020-03-13", "2020-04-10"),
+  c("2020-02-10", "2020-04-10"),
   c("2020-04-11", "2020-04-16"),
   c("2020-04-17", "2020-04-24"),
   c("2020-04-25", "2020-06-22"), 
@@ -35,8 +35,8 @@ dates <- list(
   c("2020-10-14", "2021-01-04"),
   c("2021-01-05", "2021-01-06"),
   c("2021-01-07", "2021-01-11"),
-  c("2021-01-12", "2021-01-18")#,
-  #c("2021-01-19", "2021-01-20")
+  c("2021-01-12", "2021-01-18"),
+  c("2021-01-19", "2021-02-01")
 )
 
 freqs <- lapply(myfreqs, function(myfreq) {
@@ -81,7 +81,7 @@ freqs <- lapply(myfreqs, function(myfreq) {
     #multi_freq <- lapply(freq, weighted_average, beeps=beep_data, node=nodes) 
     #export_locs(freq, beep_data, nodes, tag_id, outpath)
     
-    n <- 3 #this is an example of filtering out locations based on a minimum number of nodes
+    n<-1 #n <- 3 #this is an example of filtering out locations based on a minimum number of nodes
     #locations <- locations[locations$unique_nodes > n,]
     
     #locations$ID <- paste(locations$TagId, locations$freq, sep="_")
