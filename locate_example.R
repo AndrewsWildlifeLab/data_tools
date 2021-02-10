@@ -37,7 +37,7 @@ beep_data <- beep_data[beep_data$NodeId %in% nodes$NodeId,] #c("326317", "326584
 tag_id <- tags$TagId
 #
 #channel <- c(2)
-freq <- c("1 min", "5 min")
+freq <- c("1 min")
 
 max_nodes <- 1 #how many nodes should be used in the localization calculation?
 df <- merge_df(beep_data, nodes, tag_id, latlng = TRUE)
@@ -48,7 +48,7 @@ p3 = ggplot(data=resampled, aes(x=freq, y=TagRSSI_max, group=NodeId, colour=Node
 
 locations <- weighted_average(freq[1], beep_data, nodes, all_data[[2]][[1]], 0, tag_id)
 #multi_freq <- lapply(freq, weighted_average, beeps=beep_data, node=nodes) 
-#export_locs(freq, beep_data, nodes, tag_id, outpath)
+export_locs(freq, beep_data, nodes, tag_id, outpath)
 
 n <- 2 #this is an example of filtering out locations based on a minimum number of nodes
 locations <- locations[locations$unique_nodes > n,]
