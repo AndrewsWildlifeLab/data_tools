@@ -26,10 +26,10 @@ source("functions/node_health.R")
 #It can contain any/all of your downloaded data files, just don't manipulate/add your own unrelated/altered files.
 #Unzip any zipped directories therein, but compressed csv files (csv.gz) don't need to be unzipped
 
-infile <- "C:/Users/ethan/Dropbox/Flat Tub/Data/SS/!Need-to-be-processed/sectioned-by-grid/200210-200410 data"
+infile <- "C:/Users/ethan/Dropbox/Flat Tub/Data/SS/!Need-to-be-processed/sectioned-by-grid/210119 data"
 
 #This is where you want your output to go
-outpath <- "C:/Users/ethan/Desktop"
+outpath <- "C:/Users/ethan/Desktop/"
 
 freq <- "1 hour" #interval to summarize node health indicators of interest
 
@@ -71,7 +71,7 @@ beep_data <- beep_data[beep_data$TagId %in% tags$TagId,]
 #my_node_data <- my_node_data[my_node_data$TagId %in% my_node_data$TagId,]
 
 #UNCOMMENT AND RUN THE export_data() FUNCTION below IF YOU WANT OUTPUT CSV FILES
-export_data(infile, outpath, tags=tags$TagId)
+export_data(infile, outpath)
 
 #Alternatively, if you have a file already created that you'd like to work
 #with in the same format, you can always read.csv() into a data frame of the same name here
