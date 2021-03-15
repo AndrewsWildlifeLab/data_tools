@@ -8,10 +8,14 @@ source("C:/Users/ethan/Desktop/data_tools/functions/data_manager.R")
 source("C:/Users/ethan/Desktop/data_tools/functions/localization.R")
 
 ###EDIT THESE VALUES
-infile <- "C:/Users/ethan/Dropbox/Flat Tub/Data/SS/!Need-to-be-processed/sectioned-by-grid/"
-outpath <- "C:/Users/ethan/Dropbox/Flat Tub/Data/SS/!Results/CTT RStudio/processed_041620-020121/"
+infile <- "C:/Users/ethan/Dropbox/Flat Tub/Data/SS/!Need-to-be-processed/sectioned-by-grid/210311 data"
+outpath <- "C:/Users/ethan/Desktop/Mar"
 
 tags <- read.csv("C:/Users/ethan/Dropbox/Flat Tub/Data/SS/csv/snake_tags.csv", as.is=TRUE, na.strings=c("NA", ""), colClasses="character") #colClasses="character" addresses letter "E" in Node and Tag IDs
+#TagId<-c("1E337819","78342A66", "1E4B2A66")
+#name<-c("Rocky", "Madonna", "Bond")
+#tags<-data.frame(TagId, name)
+
 
 all_data <- load_data(infile)
 #load("indigo.RData")
@@ -21,22 +25,25 @@ beep_data <- all_data[[1]][[1]]
 #nodes <- node_file(all_data[[2]][[1]])
 ###looking for a file with the column names NodeId, lat, lng IN THAT ORDER
 
-myfreqs <- c("1 min", "5 min") #("1 min", "15 min", "30 min", "1 hour", "1 day")
+myfreqs <- c("1 min", "30 min")#c("1 min", "5 min") #("1 min", "15 min", "30 min", "1 hour", "1 day")
 #myfreqs <- c("1 day")
 
 dates <- list(
-  c("2020-02-10", "2020-04-10"),
-  c("2020-04-11", "2020-04-16"),
-  c("2020-04-17", "2020-04-24"),
-  c("2020-04-25", "2020-06-22"), 
-  c("2020-06-23", "2020-07-13"),
-  c("2020-07-14", "2020-07-23"),
-  c("2020-07-24", "2020-10-13"),
-  c("2020-10-14", "2021-01-04"),
-  c("2021-01-05", "2021-01-06"),
-  c("2021-01-07", "2021-01-11"),
-  c("2021-01-12", "2021-01-18"),
-  c("2021-01-19", "2021-02-01")
+#  c("2020-01-28", "2020-03-12"),
+#  c("2020-03-13", "2020-04-10"),
+#  c("2020-04-11", "2020-04-16"),
+#  c("2020-04-17", "2020-04-24"),
+#  c("2020-04-25", "2020-06-22"), 
+#  c("2020-06-23", "2020-07-13"),
+#  c("2020-07-14", "2020-07-23"),
+#  c("2020-07-24", "2020-10-13"),
+#  c("2020-10-14", "2020-11-23"),
+#  c("2020-11-24", "2021-01-04"),
+#  c("2021-01-05", "2021-01-06"),
+#  c("2021-01-07", "2021-01-11"),
+#  c("2021-01-12", "2021-01-18"),
+#  c("2021-01-19", "2021-03-10"),
+  c("2021-03-11", "2021-03-15")
 )
 
 freqs <- lapply(myfreqs, function(myfreq) {
@@ -67,6 +74,8 @@ freqs <- lapply(myfreqs, function(myfreq) {
     #freq <- "5 min" The interval of the added datetime variable. Any character string that would be accepted by seq.Date or seq.POSIXt
     
     #EXAMPLE POSSIBLE VALUES
+    #THIS IS WHERE YOU CAN MAKE STRINGS HAPPEN
+    #tag_id<-c("1E33","7819","3378")
     tag_id <- tags$TagId
     #
     #channel <- c(2)
@@ -88,7 +97,8 @@ freqs <- lapply(myfreqs, function(myfreq) {
     #locations <- locations[!duplicated(locations$ID),]
     locations <- cbind(locations, locations@coords)
     loc_df <- locations@data
-    return(list(loc_df, resampled))}, c(8), dates)
+    ###EDIT THIS TO REFLECT WHICH ONES FROM THISFILE VECTOR TO USE###
+    return(list(loc_df, resampled))}, c(16), dates)
   getlocs <- lapply(all2, "[[", 1)
   locs <- rbindlist(getlocs)
   

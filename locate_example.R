@@ -19,13 +19,14 @@ beep_data <- all_data[[1]][[1]]
 
 #nodes <- node_file(all_data[[2]][[1]])
 ###looking for a file with the column names NodeId, lat, lng IN THAT ORDER
-nodes <- read.csv("C:/Users/ethan/Dropbox/Flat Tub/Data/SS/csv/Nodes/snake_nodes_200128-200312.csv", as.is=TRUE, na.strings=c("NA", ""), strip.white=TRUE) #uppercase node letters
+nodes <- read.csv("C:/Users/ethan/Dropbox/Flat Tub/Data/SS/csv/Nodes/snake_nodes_210119.csv", as.is=TRUE, na.strings=c("NA", ""), strip.white=TRUE) #uppercase node letters
 nodes<-nodes %>% 
   rename(NodeId=ï..NodeId)
 nodes <- nodes[,c("NodeId", "lat", "lng")]
 nodes$NodeId <- toupper(nodes$NodeId)
 
-beep_data <- beep_data[beep_data$NodeId %in% nodes$NodeId,] #c("326317", "326584", "3282fa", "3285ae", "3288f4")
+#beep_data <- beep_data[beep_data$NodeId %in% nodes$NodeId,] #c("326317", "326584", "3282fa", "3285ae", "3288f4")
+#beep_data <- beeps_rocky_try[beeps_rocky_try$NodeId %in% nodes$NodeId,] #c("326317", "326584", "3282fa", "3285ae", "3288f4")
 
 ###UNCOMMENT THESE AND FILL WITH YOUR DESIRED VALUES IF YOU WANT YOUR OUTPUT AS ONLY A SUBSET OF THE DATA
 #channel <- a vector of RadioId value(s)
@@ -39,7 +40,7 @@ tag_id <- tags$TagId
 #channel <- c(2)
 freq <- c("1 min")
 
-max_nodes <- 1 #how many nodes should be used in the localization calculation?
+max_nodes <- 3 #how many nodes should be used in the localization calculation?
 df <- merge_df(beep_data, nodes, tag_id, latlng = TRUE)
 
 resampled <- advanced_resampled_stats(beeps = beep_data, node = nodes, freq = freq[1], tag_id = tag_id)
