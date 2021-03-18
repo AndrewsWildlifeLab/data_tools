@@ -19,7 +19,7 @@ beep_data <- all_data[[1]][[1]]
 
 #nodes <- node_file(all_data[[2]][[1]])
 ###looking for a file with the column names NodeId, lat, lng IN THAT ORDER
-nodes <- read.csv("C:/Users/ethan/Dropbox/Flat Tub/Data/SS/csv/Nodes/snake_nodes_210119.csv", as.is=TRUE, na.strings=c("NA", ""), strip.white=TRUE) #uppercase node letters
+nodes <- read.csv("C:/Users/ethan/Dropbox/Flat Tub/Data/SS/csv/Nodes/snake_nodes_210311.csv", as.is=TRUE, na.strings=c("NA", ""), strip.white=TRUE) #uppercase node letters
 nodes<-nodes %>% 
   rename(NodeId=ï..NodeId)
 nodes <- nodes[,c("NodeId", "lat", "lng")]

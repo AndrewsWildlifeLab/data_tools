@@ -26,10 +26,12 @@ source("functions/node_health.R")
 #It can contain any/all of your downloaded data files, just don't manipulate/add your own unrelated/altered files.
 #Unzip any zipped directories therein, but compressed csv files (csv.gz) don't need to be unzipped
 
-infile <- "C:/Users/ethan/Dropbox/Flat Tub/Data/SS/!Need-to-be-processed/sectioned-by-grid/210119 data"
+#infile <- "C:/Users/ethan/Dropbox/Flat Tub/Data/SS/!Need-to-be-processed/sectioned-by-grid/210119-210310 data"
+infile <- "C:/Users/ethan/Dropbox/Flat Tub/Data/SS/!Need-to-be-processed/sectioned-by-grid/210311-210315 data"
+#infile <- "C:/Users/ethan/Dropbox/Flat Tub/Data/SS/!Need-to-be-processed/sectioned-by-grid/210316 data"
 
 #This is where you want your output to go
-outpath <- "C:/Users/ethan/Desktop/"
+outpath <- "C:/Users/ethan/Desktop/MARA_snakecheck_"
 
 freq <- "1 hour" #interval to summarize node health indicators of interest
 
